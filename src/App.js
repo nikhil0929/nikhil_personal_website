@@ -1,7 +1,16 @@
 import Layout from './Pages/Layout';
-import HomePage from './Pages/Home/HomePage'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+} from "react-router-dom";
+import HomePage from './Pages/Home/HomePage';
+import AboutPage from './Pages/About/AboutPage';
+import SocialPage from './Pages/Social/SocialPage';
+import ProjectsPage from './Pages/Projects/ProjectsPage';
+import ResumePage from './Pages/Resume/ResumePage';
 
 const theme = createTheme({
   palette: {
@@ -23,12 +32,35 @@ const theme = createTheme({
   },
 });
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <HomePage />,
+  },
+  {
+    path: "/about",
+    element: <AboutPage />,
+  },
+  {
+    path: "/social",
+    element: <SocialPage />,
+  },
+  {
+    path: "/projects",
+    element: <ProjectsPage />,
+  },
+  {
+    path: "/resume",
+    element: <ResumePage />,
+  },
+]);
+
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <HomePage />
+      <RouterProvider router={router} />
     </ThemeProvider>
   );
 }
