@@ -28,9 +28,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Layout>
-        <HomePage />
-      </Layout>
+      <HomePage />
     </ThemeProvider>
   );
 }

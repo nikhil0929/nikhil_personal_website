@@ -1,65 +1,87 @@
 
-import { Grid, Paper, Typography, Box } from "@mui/material";
+import { Box, List, ListItem, Typography, Grid } from "@mui/material";
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import Icosahedron from "./Icosahedron";
-import { useRef, useEffect } from 'react'
+import { styled } from '@mui/material/styles';
+import Icosahedron from "./Components/Icosahedron";
+import { useRef, useEffect, useLayoutEffect } from 'react'
+import SelectionLink from "./Components/SelectionLink";
+import { motion } from "framer-motion"
+
+
+const StyledDiv = styled("div")({
+    height: '100vh',
+});
+
+const StyledBox = styled(Box)({
+    height: "800px",
+    width: "1000px",
+});
+
+
+const NavItems = ["Home", "About", "Projects", "Social", "Resume"]
 
 function HomePage() {
 
-    const WelcomeMessage = (
+    const Links = (
         <Box sx={{
-            textAlign: 'center',
-            paddingTop: '150px',
+            border: '1px solid blue',
+            marginLeft: "120px",
         }}>
-            <Box sx={{
-                display: 'inline-block',
-                textAlign: 'left',
-            }}>
-                <Typography variant="h1">
-                    Welcome.
-                </Typography>
-                <Typography variant="h2">
-                    I'm <b>Nikhil Aggarwal</b>.
-                </Typography>
-                <Typography variant="h3">
-                    I'm a full-stack web developer.
-                </Typography>
-            </Box>
+            <List>
+                {NavItems.map((item) => (
+                    <ListItem>
+                        <SelectionLink props={item} />
+                    </ListItem>
+                ))}
+            </List>
         </Box>
-
     )
 
-    const Camera = (props) => {
-        const ref = useRef()
-        const set = useThree((state) => state.set)
-        useEffect(() => void set({ camera: ref.current }), [])
-        useFrame(() => ref.current.updateMatrixWorld())
-        return <perspectiveCamera ref={ref} {...props} />;
-    }
 
     return (
-        <div>
-            <Grid container sx={{
-                height: "calc(100vh - 64px)",
-            }}>
-                <Grid item xs={6} sx={{
-                    //border: '1px solid red',
+        // <StyledDiv>
+        //     <Canvas>
+        //         {/* <Camera position={[0, 0, 3]} /> */}
+        //         <ambientLight />
+        //         <pointLight position={[0, 0, 0]} />
+        //         <Icosahedron position={[0, 0, 0]} />
+        //         {/* <Hand position={[0, 0, 4]} scale={4} /> */}
+        //     </Canvas>
+        // </StyledDiv>
+        <Box sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            border: '1px solid green',
+            height: '100vh',
+        }}>
+            <StyledBox>
+                <Grid container sx={{
+                    height: '100%',
                 }}>
-                    {WelcomeMessage}
+                    <Grid item xs={3} sx={{
+                        border: '1px solid red',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}>
+                        {Links}
+                    </Grid>
+                    <Grid item xs={9} sx={{
+                        border: '1px solid red',
+                    }}>
+                        <Canvas>
+                            {/* <Camera position={[0, 0, 3]} /> */}
+                            <ambientLight />
+                            <pointLight position={[0, 0, 0]} />
+                            <Icosahedron position={[-0.8, 0, 0]} />
+                            {/* <Hand position={[0, 0, 4]} scale={4} /> */}
+                        </Canvas>
+                    </Grid>
                 </Grid>
-                <Grid item xs={6} sx={{
-                    //border: '1px solid red',
-                }}>
-                    <Canvas>
-                        {/* <Camera position={[0, 0, 3]} /> */}
-                        <ambientLight />
-                        <pointLight position={[0, 0, 0]} />
-                        <Icosahedron position={[0, 0, 0]} />
-                        {/* <Hand position={[0, 0, 4]} scale={4} /> */}
-                    </Canvas>
-                </Grid>
-            </Grid>
-        </div>
+            </StyledBox>
+        </Box>
+
     );
 }
 

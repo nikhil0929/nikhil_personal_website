@@ -11,13 +11,14 @@ function Icosahedron(props) {
 
     useFrame((state, delta) => {
         mesh.current.rotation.y += 0.007
-        mesh.current.rotation.x += 0.006
-        mesh.current.rotation.z += 0.005
+        // mesh.current.rotation.x += 0.006
+        // mesh.current.rotation.z += 0.005
     })
 
     const variants = {
         hidden: { opacity: 0 },
         visible: { opacity: 1 },
+
     }
 
     return (
@@ -32,6 +33,7 @@ function Icosahedron(props) {
                 <motion.meshNormalMaterial
                     initial="hidden"
                     animate="visible"
+                    transition={{ duration: 3 }}
                     variants={variants}
                 />
             </motion.mesh>
