@@ -29,7 +29,7 @@ function Icosahedron(props) {
                 scale={1}
                 whileHover={{ scale: 1.1 }}
             >
-                <icosahedronGeometry args={[2, 0]} />
+                <sphereGeometry args={[1.9, 32, 32]} />
                 <motion.meshNormalMaterial
                     initial="hidden"
                     animate="visible"

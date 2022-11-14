@@ -29,7 +29,7 @@ function HomePage() {
         }}>
             <List>
                 {NavItems.map((item) => (
-                    <ListItem>
+                    <ListItem sx={{}}>
                         <SelectionLink props={item} />
                     </ListItem>
                 ))}
@@ -39,15 +39,6 @@ function HomePage() {
 
 
     return (
-        // <StyledDiv>
-        //     <Canvas>
-        //         {/* <Camera position={[0, 0, 3]} /> */}
-        //         <ambientLight />
-        //         <pointLight position={[0, 0, 0]} />
-        //         <Icosahedron position={[0, 0, 0]} />
-        //         {/* <Hand position={[0, 0, 4]} scale={4} /> */}
-        //     </Canvas>
-        // </StyledDiv>
         <Box sx={{
             display: 'flex',
             justifyContent: 'center',
