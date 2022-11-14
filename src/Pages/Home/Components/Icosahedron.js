@@ -29,12 +29,13 @@ function Icosahedron(props) {
                 scale={1}
                 whileHover={{ scale: 1.1 }}
             >
-                <sphereGeometry args={[1.9, 32, 32]} />
+                <sphereBufferGeometry args={[1.9, 32, 32]} />
                 <motion.meshNormalMaterial
                     initial="hidden"
                     animate="visible"
                     transition={{ duration: 3 }}
                     variants={variants}
+                    wireframe
                 />
             </motion.mesh>
         </PresentationControls>

@@ -28,14 +28,35 @@ function HomePage() {
             marginLeft: "120px",
         }}>
             <List>
-                {NavItems.map((item) => (
-                    <ListItem sx={{}}>
-                        <SelectionLink props={item} />
-                    </ListItem>
-                ))}
+                {NavItems.map((item, index) => {
+                    let calculatedPadding = 90
+                    if (index <= Math.floor(NavItems.length / 2)) {
+                        calculatedPadding -= (index * 45)
+                    } else if (index > Math.floor(NavItems.length / 2)) {
+                        calculatedPadding -= ((NavItems.length - 1) - index) * 45
+                    } else {
+                        calculatedPadding = 0
+                    }
+
+                    return (
+                        <ListItem sx={{
+                            paddingLeft: calculatedPadding + "px",
+                        }}>
+                            <SelectionLink props={item} />
+                        </ListItem>
+                    )
+                })}
             </List>
         </Box>
     )
+
+    const Camera = (props) => {
+        const ref = useRef()
+        const set = useThree((state) => state.set)
+        useEffect(() => void set({ camera: ref.current }), [])
+        useFrame(() => ref.current.updateMatrixWorld())
+        return <perspectiveCamera ref={ref} {...props} />;
+    }
 
 
     return (
@@ -62,7 +83,7 @@ function HomePage() {
                         border: '1px solid red',
                     }}>
                         <Canvas>
-                            {/* <Camera position={[0, 0, 3]} /> */}
+                            {/* <Camera position={[-0.8, 0, 9]} /> */}
                             <ambientLight />
                             <pointLight position={[0, 0, 0]} />
                             <Icosahedron position={[-0.8, 0, 0]} />
