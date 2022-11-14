@@ -24,10 +24,12 @@ function HomePage() {
 
     const Links = (
         <Box sx={{
-            border: '1px solid blue',
-            marginLeft: "120px",
+            // border: '1px solid blue',
+            marginLeft: "100px",
         }}>
-            <List>
+            <List sx={{
+                marginLeft: "120px",
+            }}>
                 {NavItems.map((item, index) => {
                     let calculatedPadding = 90
                     if (index <= Math.floor(NavItems.length / 2)) {
@@ -41,6 +43,7 @@ function HomePage() {
                     return (
                         <ListItem sx={{
                             paddingLeft: calculatedPadding + "px",
+                            paddingBottom: "25px",
                         }}>
                             <SelectionLink props={item} />
                         </ListItem>
@@ -50,43 +53,35 @@ function HomePage() {
         </Box>
     )
 
-    const Camera = (props) => {
-        const ref = useRef()
-        const set = useThree((state) => state.set)
-        useEffect(() => void set({ camera: ref.current }), [])
-        useFrame(() => ref.current.updateMatrixWorld())
-        return <perspectiveCamera ref={ref} {...props} />;
-    }
-
 
     return (
         <Box sx={{
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            border: '1px solid green',
+            // border: '1px solid green',
             height: '100vh',
         }}>
             <StyledBox>
                 <Grid container sx={{
                     height: '100%',
                 }}>
-                    <Grid item xs={3} sx={{
-                        border: '1px solid red',
+                    <Grid item xs={4} sx={{
+                        // border: '1px solid red',
                         display: 'flex',
                         justifyContent: 'center',
                         alignItems: 'center',
                     }}>
                         {Links}
                     </Grid>
-                    <Grid item xs={9} sx={{
-                        border: '1px solid red',
+                    <Grid item xs={8} sx={{
+                        // border: '1px solid red',
                     }}>
                         <Canvas>
                             {/* <Camera position={[-0.8, 0, 9]} /> */}
                             <ambientLight />
                             <pointLight position={[0, 0, 0]} />
-                            <Icosahedron position={[-0.8, 0, 0]} />
+                            <Icosahedron position={[-0.6, 0, 0]} />
                             {/* <Hand position={[0, 0, 4]} scale={4} /> */}
                         </Canvas>
                     </Grid>
