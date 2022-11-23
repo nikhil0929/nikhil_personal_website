@@ -23,7 +23,7 @@ function SelectionLink({ props }) {
             whileHover={{ scale: 1.4 }}
             whileTap={{ scale: 1 }}
         >
-            <StyledLink href="#" underline="hover">
+            <StyledLink href={props} underline="hover">
                 <Typography variant="h3">
                     {props}
                 </Typography>
