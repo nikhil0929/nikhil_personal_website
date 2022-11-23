@@ -2,15 +2,24 @@ import { useRef, useState } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { PresentationControls } from "@react-three/drei";
 import { motion } from "framer-motion-3d"
+import { useSpring, animated } from '@react-spring/three'
+import { config } from 'chai';
+
 
 
 function Icosahedron(props) {
     const mesh = useRef()
 
-    const [clicked, setClicked] = useState(false)
+    const [active, setActive] = useState(false)
+    const { scale } = useSpring({
+        scale: active ? 1.5 : 1,
+        config: config.wobbly
+    })
 
-    useFrame((state, delta) => {
-        mesh.current.rotation.y += 0.007
+
+    useFrame(({ clock }) => {
+        mesh.current.rotation.y = Math.sin(clock.getElapsedTime())
+        // mesh.current.rotation.y += 0.007
         // mesh.current.rotation.x += 0.006
         // mesh.current.rotation.z += 0.005
     })
@@ -23,11 +32,11 @@ function Icosahedron(props) {
 
     return (
         <PresentationControls>
-            <motion.mesh
+            <animated.mesh
                 {...props}
                 ref={mesh}
-                scale={1}
-                whileHover={{ scale: 1.1 }}
+                scale={scale}
+                onClick={() => setActive(!active)}
             >
                 <sphereBufferGeometry args={[1.9, 32, 32]} />
                 <motion.meshNormalMaterial
@@ -37,7 +46,7 @@ function Icosahedron(props) {
                     variants={variants}
                     wireframe
                 />
-            </motion.mesh>
+            </animated.mesh>
         </PresentationControls>
     )
 }
